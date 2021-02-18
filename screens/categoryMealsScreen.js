@@ -18,8 +18,13 @@ const CategoryMealsScreen = (props) => {
         duration={itemData.item.duration}
         complexity={itemData.item.complexity}
         affordability={itemData.item.affordability}
-        image={itemData.item.imageUrl}
-        onSelectMeal={() => {}}
+        image={itemData.item.url}
+        onSelectMeal={() => {
+          props.navigation.navigate({
+            routeName: 'Meal Details',
+            params: { mealId: itemData.item.id },
+          });
+        }}
       />
     );
   };
@@ -32,7 +37,7 @@ const CategoryMealsScreen = (props) => {
   return (
     <View style={styles.container}>
       <FlatList
-        style={{ width: '100%' }}
+        style={{ width: '90%' }}
         data={displayedMeals}
         renderItem={renderMealItem}
       />

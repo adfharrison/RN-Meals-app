@@ -3,11 +3,17 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createDrawerNavigator } from 'react-navigation-drawer';
+import { MEALS } from '../data/dummyData';
 
 const MealDetailsScreen = (props) => {
+  const mealId = props.navigation.getParam('mealId');
+  const selectedMeal = MEALS.find((meal) => {
+    return meal.id === mealId;
+  });
+
   return (
     <View style={styles.container}>
-      <Text>Meal Details Screen</Text>
+      <Text>{selectedMeal.title}</Text>
       <Button
         title='Go back to categories'
         onPress={() => {
@@ -16,6 +22,16 @@ const MealDetailsScreen = (props) => {
       />
     </View>
   );
+};
+
+MealDetailsScreen.navigationOptions = (navigationData) => {
+  const mealId = navigationData.navigation.getParam('mealId');
+  const selectedMeal = MEALS.find((meal) => {
+    return meal.id === mealId;
+  });
+  return {
+    headerTitle: selectedMeal.title,
+  };
 };
 
 const styles = StyleSheet.create({
