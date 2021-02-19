@@ -37,19 +37,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     shadowColor: 'black',
     shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 1, height: 2 },
     shadowRadius: 10,
-    elevation: 3,
+
     alignItems: 'flex-end',
     justifyContent: 'flex-end',
     padding: 15,
   },
   gridItem: {
+    elevation: 4,
     flex: 1,
     margin: 15,
     height: 150,
     borderRadius: 10,
-    overflow: 'hidden',
+    overflow:
+      Platform.OS === 'android' && Platform.Version >= 21
+        ? 'hidden'
+        : 'visible',
   },
   title: {
     fontFamily: 'open-sans-bold',

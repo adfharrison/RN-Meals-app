@@ -6,43 +6,18 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import Colors from '../constants/colors';
 
 import MealListItem from '../components/mealListItem';
+import MealList from '../components/mealList';
 
 import { CATEGORIES, MEALS } from '../data/dummyData';
-import { FlatList } from 'react-native-gesture-handler';
 
 const CategoryMealsScreen = (props) => {
-  const renderMealItem = (itemData) => {
-    return (
-      <MealListItem
-        title={itemData.item.title}
-        duration={itemData.item.duration}
-        complexity={itemData.item.complexity}
-        affordability={itemData.item.affordability}
-        image={itemData.item.url}
-        onSelectMeal={() => {
-          props.navigation.navigate({
-            routeName: 'Meal Details',
-            params: { mealId: itemData.item.id },
-          });
-        }}
-      />
-    );
-  };
   const catId = props.navigation.getParam('categoryId');
 
   const displayedMeals = MEALS.filter((meal) => {
     return meal.categoryIds.indexOf(catId) >= 0;
   });
 
-  return (
-    <View style={styles.container}>
-      <FlatList
-        style={{ width: '90%' }}
-        data={displayedMeals}
-        renderItem={renderMealItem}
-      />
-    </View>
-  );
+  return <MealList listData={displayedMeals} navigation={props.navigation} />;
 };
 
 // apply title of screen to header based on category title
