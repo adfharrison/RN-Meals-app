@@ -4,6 +4,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 
+import { useDispatch } from 'react-redux';
+import { setFilters } from '../store/actions/meals';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/headerButton';
 import { NativeViewGestureHandler } from 'react-native-gesture-handler';
@@ -32,6 +34,7 @@ const FiltersScreen = (props) => {
   const { navigation } = props;
 
   // use callback avoids unneccasary rebuilds
+  const dispatch = useDispatch();
   const saveFilters = useCallback(() => {
     const appliedFilters = {
       glutenFree: isGlutenFree,
@@ -39,8 +42,9 @@ const FiltersScreen = (props) => {
       vegetarian: isVegetarian,
       vegan: isVegan,
     };
-    console.log(appliedFilters);
-  }, [isVegetarian, isVegan, isLactoseFree, isGlutenFree]);
+
+    dispatch(setFilters(appliedFilters));
+  }, [isVegetarian, isVegan, isLactoseFree, isGlutenFree, dispatch]);
 
   // set what the save button does each time the state is changed
   useEffect(() => {
